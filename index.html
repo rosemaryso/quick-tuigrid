@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/node_modules/tui-time-picker/dist/tui-time-picker.css">
+  <link rel="stylesheet" href="/node_modules/tui-date-picker/dist/tui-date-picker.css">
+  <link rel="stylesheet" href="/node_modules/tui-grid/dist/tui-grid.min.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/tui-code-snippet/dist/tui-code-snippet.min.js"></script>
+  <script src="/node_modules/tui-time-picker/dist/tui-time-picker.min.js"></script>
+  <script src="/node_modules/tui-date-picker/dist/tui-date-picker.min.js"></script>
+  <script src="/node_modules/tui-grid/dist/tui-grid.min.js"></script>
+  <!-- <script src="index.js"></script> -->
+</head>
+<style>
+  *{
+    margin: 0 auto;
+  }
+</style>
+<script>
+  var grid;
+  var grid1;
+  window.onload = function() {
+    const gridData = [
+      {
+        c1: '1992/03/25',
+        c2: '12/06/2019',
+        c3: '2014-04-16',
+        c4: '2019-11-19 09:00 AM',
+        c5: '2019-11-19 09:00 AM',
+        c6: '2019-01',
+        c7: '2019'
+      }
+    ];
+
+    grid1 = new tui.Grid({
+      el: document.getElementById('grid'),
+      scrollX: false,
+      scrollY: false,
+      data: gridData,
+      columns: [
+        {
+          header: 'DatePicker (Default)',
+          name: 'c1',
+          editor: 'datePicker'
+        },
+        {
+          header: 'DatePicker (Using options)',
+          name: 'c2',
+          editor: {
+            type: 'datePicker',
+            options: {
+              format: 'dd/MM/yyyy'
+            }
+          }
+        },
+        {
+          header: 'DatePicker (selectableRanges)',
+          name: 'c3',
+          editor: {
+            type: 'datePicker',
+            options: {
+              selectableRanges: [[new Date(2014, 3, 10), new Date(2014, 5, 20)]]
+            }
+          }
+        },
+        {
+          header: 'Date-TimePicker',
+          name: 'c4',
+          editor: {
+            type: 'datePicker',
+            options: {
+              format: 'yyyy-MM-dd HH:mm A',
+              timepicker: true
+            }
+          }
+        },
+        {
+          header: 'Date-TimePicker With tab',
+          name: 'c5',
+          editor: {
+            type: 'datePicker',
+            options: {
+              format: 'yyyy-MM-dd HH:mm A',
+              timepicker: {
+                layoutType: 'tab',
+                inputType: 'spinbox'
+              }
+            }
+          }
+        },
+        {
+          header: 'MonthPicker',
+          name: 'c6',
+          editor: {
+            type: 'datePicker',
+            options: {
+              format: 'yyyy-MM',
+              type: 'month'
+            }
+          }
+        },
+        {
+          header: 'YearPicker',
+          name: 'c7',
+          editor: {
+            type: 'datePicker',
+            options: {
+              format: 'yyyy',
+              type: 'year'
+            }
+          }
+        }
+      ]
+    })
+
+    const grid2 = new tui.Grid({
+      el: document.getElementById('grid'),
+      // data: gridData,
+      scrollX: false,
+      scrollY: false,
+      rowHeaders: ['checkbox','rowNum'],
+      columns: [
+        {
+          header: 'Name',
+          name: 'name',
+          filter: 'select'
+        },
+        {
+          header: 'Artist',
+          name: 'artist',
+          filter: 'select'
+        },
+        {
+          header: 'Type',
+          name: 'type',
+          filter: 'select'
+        },
+        {
+          header: 'Release',
+          name: 'release'
+        },
+        {
+          header: 'Genre',
+          name: 'genre'
+        }
+      ]
+    });
+
+    $('button').click(function(){
+      // alert('test')
+      document.getElementById('search').onclick = function() {
+        $.ajax({
+          url: "index.js",
+          method: "GET",
+          success: function(result){
+            grid2.resetData(eval(result))
+          }
+        })
+      },
+      document.getElementById('close').onclick = function() {
+        // grid2.filter('name', [{code: 'eq', value: 3}, {code: 'eq', value: 4}]);
+        grid2.filter('name', [{code: 'eq', value: 'X'}, {code: 'eq', value: 21}, {code: 'eq', value:'Valtari'}]);
+        grid2.filter('type', [{code: 'eq', value: 'EP'}, {code: 'eq', value: 'Deluxe'}]);
+      }
+
+      // $.ajax({
+      //   url: "index.js",
+      //   method: "GET",
+      //   success: function(result){
+      //     grid.resetData(eval(result))
+      //   }
+      // })
+      // grid.filter('name', [{code: 'eq', value: 3}, {code: 'eq', value: 4}]);
+    })
+
+    
+
+  }
+
+  $(document).ready(function() {
+	//페이지 로드 시 실행할 코드 구현
+  // tui.Grid.filter('name', [{code: 'eq', value: 3}, {code: 'eq', value: 4}]);
+  });
+
+  //같은 소스
+  $(function(){
+    //페이지 로드 시 실행할 코드 구현
+    // tui.Grid.filter('name', [{code: 'eq', value: 3}, {code: 'eq', value: 4}]);
+  });
+
+  window.addEventListener('load', function() {
+    let a = document.getElementById('name');
+    a.style.color = "blue"
+    // Grid.filter('name', [{code: 'eq', value: 3}, {code: 'eq', value: 4}]);
+  })
+
+  tui.Grid.applyTheme('normal', {
+    cell: {
+      normal: {
+        background: '#fff',
+        border: '#e0e0e0',
+        showVerticalBorder: true,
+        showHorizontalBorder: true
+      },
+      header: {
+        background: '#eaeaea',
+        border: '#e0e0e0',
+        showVerticalBorder: true,
+        showHorizontalBorder: true
+      },
+      rowHeader: {
+        background: '#eaeaea',
+        border: '#e0e0e0',
+        showVerticalBorder: true,
+        showHorizontalBorder: true
+      }
+    }
+  })
+
+  
+</script>
+<body>
+  <div id="warp" style="width: 90%;">
+    <div style="display: flex; flex-flow: row nowrap; margin-bottom: 10px ;">
+      <div>
+        <img src="/node_modules/bootstrap-icons/icons/caret-right-square-fill.svg" />대화 목록 조회
+      </div>
+      <div>
+        <button id="search" type="button" class="btn btn-primary">조회</button>
+        <button id="close" class="btn btn-primary" type="submit">닫기</button>
+      </div>
+    </div>
+    <div id="grid"></div>
+  </div>
+  <p id="name">hello</p>
+</body>
+</html>

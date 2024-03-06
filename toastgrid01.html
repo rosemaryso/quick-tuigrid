@@ -1,0 +1,22 @@
+import Vue from 'vue';
+import { Grid } from '@toast-ui/vue-grid';
+import 'tui-grid/dist/tui-grid.css';
+import 'tui-pagination/dist/tui-pagination.css';
+
+export default Vue.extend({
+  name: 'App',
+  components: {
+    grid: Grid
+  },
+  mounted() {
+    this.$refs.tuiGrid.invoke('use', 'Net', {
+      perPage: 10,
+      api: { readData: 'api/readData' }
+    });
+  },
+  data() {
+    return {
+      columns: [/* column settings.. */]
+    };
+  }
+});
