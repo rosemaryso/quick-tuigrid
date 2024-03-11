@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast Grid Example</title>
+  <style>
+    /* 행의 색상을 설정하는 CSS 클래스 */
+    .row-odd {
+      background-color: lightblue;
+    }
+
+    .row-even {
+      background-color: lightgreen;
+    }
+
+    /* 그리드 스타일 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    /* 각 셀의 스타일 */
+    .cell {
+      padding: 10px;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="grid">
+      <!-- 각 행 렌더링 -->
+      <div class="cell" v-for="(row, index) in gridData" :key="index" :class="{'row-odd': index % 2 === 0, 'row-even': index % 2 !== 0}">
+        {{ row }}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        // 그리드 데이터
+        gridData: [
+          'Row 1 Data',
+          'Row 2 Data',
+          'Row 3 Data',
+          'Row 4 Data',
+          'Row 5 Data',
+          'Row 6 Data'
+        ]
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<template>
+  <div>
+    <!-- Toast Grid -->
+    <div ref="toastGridContainer"></div>
+
+    <!-- Tui Grid -->
+    <div ref="tuiGridContainer"></div>
+  </div>
+</template>
+
+<script>
+import ToastGrid from 'toast-grid';
+import { Grid } from '@toast-ui/vue-grid';
+
+export default {
+  mounted() {
+    // Toast Grid 초기화
+    const toastGridContainer = this.$refs.toastGridContainer;
+    const toastGrid = new ToastGrid(toastGridContainer);
+
+    // Tui Grid 초기화
+    const tuiGridContainer = this.$refs.tuiGridContainer;
+    const tuiGrid = new Grid({
+      el: tuiGridContainer,
+      // Tui Grid의 설정 옵션들을 추가할 수 있습니다.
+    });
+
+    // Toast Grid 데이터 설정 및 렌더링
+    const toastGridData = [
+      // 데이터 배열을 추가할 수 있습니다.
+    ];
+    toastGrid.setData(toastGridData);
+
+    // Tui Grid 데이터 설정 및 렌더링
+    const tuiGridData = [
+      // 데이터 배열을 추가할 수 있습니다.
+    ];
+    tuiGrid.setData(tuiGridData);
+  },
+  components: {
+    Grid,
+  },
+};
+</script>

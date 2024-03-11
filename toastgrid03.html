@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast Grid Example</title>
+  <style>
+    /* 그리드 컨테이너의 스타일 */
+    #app {
+      width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <Grid :data="gridData" :columns="columns" :rowTemplate="rowTemplate" />
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@toast-ui/vue-grid"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/tui-code-snippet/dist/tui-code-snippet.min.js"></script>
+  <script src="/node_modules/tui-time-picker/dist/tui-time-picker.min.js"></script>
+  <script src="/node_modules/tui-grid/dist/tui-grid.min.js"></script>
+  <script>
+    // Toast UI 그리드 모듈을 가져옴
+    const { Grid } = tui.grid;
+    
+    new Vue({
+      el: '#app',
+      components: {
+        Grid: Grid
+      },
+      data: {
+        // 그리드 데이터
+        gridData: [
+          { name: 'Alice', age: 25 },
+          { name: 'Bob', age: 30 },
+          { name: 'Charlie', age: 35 },
+          { name: 'David', age: 40 },
+          { name: 'Eve', age: 45 }
+        ],
+        // 컬럼 정의
+        columns: [
+          { name: 'name', header: 'Name' },
+          { name: 'age', header: 'Age' }
+        ],
+        // 행 템플릿
+        rowTemplate: (props) => {
+          // 행 번호에 따라 홀수/짝수 색상 설정
+          return {
+            classes: {
+              'tui-grid-row-even': props.rowKey % 2 === 0,
+              'tui-grid-row-odd': props.rowKey % 2 !== 0
+            }
+          };
+        }
+      }
+    });
+  </script>
+</body>
+</html>
